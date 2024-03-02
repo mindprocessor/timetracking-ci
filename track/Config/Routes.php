@@ -66,3 +66,7 @@ $routes->group('admin', ['filter'=>'secure_admin'], function($routes){
     $routes->post('htmx/filter/timelog', [HxAdminController::class, 'filterTimelog']);
     $routes->get('htmx/test', [HxAdminController::class, 'test']);
 });
+
+
+/**please comment this or remove if tables are created */
+$routes->get('/create/tables', [\Track\Controllers\Admin\AdminDBController::class, 'createTables']);
