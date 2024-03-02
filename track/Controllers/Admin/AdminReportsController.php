@@ -20,4 +20,38 @@ class AdminReportsController extends MainController{
             'usernames'=>$usernames
             ]);
     }
+
+
+    public function getRecord($id){
+        $report = $this->model_reports->firstOrFail($id);
+
+        $user = $this->model_users->where('id', $report['users_id'])->first();
+
+        $pdata = [
+            'title'    => $report['title'],
+            'severity' => $report['severity'],
+            'details'  => $report['details'],
+            'remarks'  => $this->request->getPost('remarks') ?? $report['remarks'],
+            'resolved' => $this->request->getPost('resolved') ?? $report['resolved'],
+        ];
+
+        if($this->request->is('post')){
+            try{
+                $this->model_reports->update([
+                    'remarks'=>$pdata['remarks'],
+                    'resolved'=>$pdata['resolved'],
+                ], $id);
+                $msg = alert('success', 'Changes was saved');
+            }catch(\Exception $e){
+                $msg = alert('danger', 'Something went wrong');
+            }
+        }
+
+        return view('\Track\Views\admin\reports\report_edit', [
+            'report'=>$report,
+            'pdata'=>$pdata,
+            'msg'=>$msg ?? null,
+            'user'=>$user,
+        ]);
+    }
 }

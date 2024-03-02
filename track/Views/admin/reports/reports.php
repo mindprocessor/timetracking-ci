@@ -31,7 +31,7 @@
                                 <tr>
                                     <td><?=$report['severity'];?></td>
                                     <td>
-                                        <a href="" 
+                                        <a href="<?=base_url("admin/reports/record/id/{$report['id']}");?>" 
                                             class="text-decoration-none fw-bold"
                                             up-layer="new" up-size="large" up-on-dismissed="up.reload()" up-scroll="restore">
                                             <?=$report['title'];?></td>

@@ -37,4 +37,15 @@ class Reports extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    public function firstOrFail($id){
+        $find_record = $this->find($id);
+        if($find_record){
+            return $find_record;
+        }else{
+            die('No records found!');
+        }
+    }
+
 }

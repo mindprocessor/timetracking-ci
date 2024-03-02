@@ -50,6 +50,7 @@ $routes->group('admin', ['filter'=>'secure_admin'], function($routes){
 
     /**reports */
     $routes->get('reports', [AdminReportsController::class, 'reports']);
+    $routes->add('reports/record/id/(:num)', [AdminReportsController::class, 'getRecord']);
 
     /**users */
     $routes->get('users', [AdminUsersController::class, 'users']);
