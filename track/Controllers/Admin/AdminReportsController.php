@@ -32,18 +32,19 @@ class AdminReportsController extends MainController{
             'severity' => $report['severity'],
             'details'  => $report['details'],
             'remarks'  => $this->request->getPost('remarks') ?? $report['remarks'],
-            'resolved' => $this->request->getPost('resolved') ?? $report['resolved'],
+            'resolved' => $report['resolved'],
         ];
 
         if($this->request->is('post')){
             try{
-                $this->model_reports->update([
+                $this->model_reports->update($id, [
                     'remarks'=>$pdata['remarks'],
-                    'resolved'=>$pdata['resolved'],
-                ], $id);
+                    'resolved'=>intval($this->request->getPost('resolved') ?? 0),
+                ]);
+                $pdata['resolved'] = $this->request->getPost('resolved');
                 $msg = alert('success', 'Changes was saved');
             }catch(\Exception $e){
-                $msg = alert('danger', 'Something went wrong');
+                $msg = alert('danger', 'Something went wrong '.$e);
             }
         }
 

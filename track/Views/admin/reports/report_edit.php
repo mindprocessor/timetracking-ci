@@ -46,14 +46,15 @@
                     </div>
                     <div class="col-12">
                         <label>Remarks</label>
-                        <textarea name="remarks" cols="30" rows="10" class="form-control"><?=$report['remarks'];?></textarea>
+                        <textarea name="remarks" cols="30" rows="10" class="form-control"><?=$pdata['remarks'];?></textarea>
                     </div>
                     <div class="col-12">
                         <div class="form-check">
                             <?php
                                 echo form_checkbox(
                                     data:'resolved', 
-                                    value:$report['resolved'],
+                                    value:1,
+                                    checked: ($pdata['resolved'] == 1) ? true : false,
                                     extra:[
                                         'class'=>'form-check-input',
                                         'id'=>'resolved-checkbox',
